@@ -1,0 +1,21 @@
+# Build output
+/build/
+/build-cmake/
+*.obj
+*.res
+*.scr
+*.exe
+*.pdb
+*.ilk
+*.lib
+*.exp
+
+# Local captures and logs
+/dump/
+*.log
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+CMakeUserPresets.json

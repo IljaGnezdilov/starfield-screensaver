@@ -1,0 +1,133 @@
+// This file is UTF-8 because the dialog is localized in Russian. Keep code_page(65001)
+// and compile with /utf-8; otherwise rc.exe may misread the labels.
+#pragma code_page(65001)
+
+#include <windows.h>
+
+#include "../src/resource.h"
+
+IDI_APP ICON "app.ico"
+1 RT_MANIFEST "app.manifest"
+
+// Single fixed-size form (no tabs): timeline at top-left, nebulae below it, stars on
+// the right. Dialog units scale with the 9 pt Segoe UI font.
+IDD_SETTINGS DIALOGEX 0, 0, 500, 350
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Настройки Starfield"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    GROUPBOX "Обзор", -1, 7, 7, 238, 92
+    LTEXT "Длительность раунда, с [1–60]:", -1, 14, 18, 126, 8
+    EDITTEXT IDC_ROUND_SECONDS, 145, 16, 50, 12, ES_AUTOHSCROLL
+    LTEXT "Угол обзора, ° [10–360]:", -1, 14, 33, 108, 8
+    EDITTEXT IDC_ANGLE_MIN, 145, 31, 30, 12, ES_AUTOHSCROLL
+    LTEXT "—", -1, 178, 33, 8, 8
+    EDITTEXT IDC_ANGLE_MAX, 186, 31, 30, 12, ES_AUTOHSCROLL
+    LTEXT "Раундов до варпа [1–100]:", -1, 14, 48, 126, 8
+    EDITTEXT IDC_ROUNDS_MIN, 145, 46, 30, 12, ES_AUTOHSCROLL
+    LTEXT "—", -1, 178, 48, 8, 8
+    EDITTEXT IDC_ROUNDS_MAX, 186, 46, 30, 12, ES_AUTOHSCROLL
+    LTEXT "Варп, с [0.1–5]:", -1, 14, 63, 100, 8
+    EDITTEXT IDC_WARP_SECONDS, 145, 61, 50, 12, ES_AUTOHSCROLL
+    LTEXT "Seed [−1 = случайный]:", -1, 14, 78, 126, 8
+    EDITTEXT IDC_SEED, 145, 76, 88, 12, ES_AUTOHSCROLL
+
+    GROUPBOX "Туманности", -1, 7, 105, 238, 217
+    LTEXT "Интенсивность [0.1–3]:", -1, 14, 116, 126, 8
+    EDITTEXT IDC_NEB_INTENSITY, 145, 114, 50, 12, ES_AUTOHSCROLL
+    LTEXT "Размер [0.25–3]:", -1, 14, 130, 126, 8
+    EDITTEXT IDC_NEB_SIZE, 145, 128, 50, 12, ES_AUTOHSCROLL
+    LTEXT "Пыль [0–2]:", -1, 14, 144, 126, 8
+    EDITTEXT IDC_NEB_DUST, 145, 142, 50, 12, ES_AUTOHSCROLL
+    LTEXT "Искажение [0–2]:", -1, 14, 158, 126, 8
+    EDITTEXT IDC_NEB_WARP, 145, 156, 50, 12, ES_AUTOHSCROLL
+    LTEXT "Рваность [0–2]:", -1, 14, 172, 126, 8
+    EDITTEXT IDC_NEB_EDGE, 145, 170, 50, 12, ES_AUTOHSCROLL
+    LTEXT "Палитра:", -1, 14, 187, 126, 8
+    COMBOBOX IDC_NEB_PALETTE, 145, 185, 80, 60, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT "Лопасти [1–4]:", -1, 14, 203, 126, 8
+    EDITTEXT IDC_NEB_LOBES_MIN, 145, 201, 26, 12, ES_AUTOHSCROLL
+    LTEXT "—", -1, 174, 203, 8, 8
+    EDITTEXT IDC_NEB_LOBES_MAX, 183, 201, 26, 12, ES_AUTOHSCROLL
+    LTEXT "Дуги [1–3]:", -1, 14, 217, 126, 8
+    EDITTEXT IDC_NEB_ARCS_MIN, 145, 215, 26, 12, ES_AUTOHSCROLL
+    LTEXT "—", -1, 174, 217, 8, 8
+    EDITTEXT IDC_NEB_ARCS_MAX, 183, 215, 26, 12, ES_AUTOHSCROLL
+    LTEXT "Джеты [1–5]:", -1, 14, 231, 126, 8
+    EDITTEXT IDC_NEB_JETS_MIN, 145, 229, 26, 12, ES_AUTOHSCROLL
+    LTEXT "—", -1, 174, 231, 8, 8
+    EDITTEXT IDC_NEB_JETS_MAX, 183, 229, 26, 12, ES_AUTOHSCROLL
+    LTEXT "Типы:", -1, 14, 249, 30, 8
+    CONTROL "Эмиссия", IDC_NEB_TYPE_EMISSION, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 52, 247, 55, 10
+    CONTROL "Оболочка", IDC_NEB_TYPE_SHELL, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 112, 247, 58, 10
+    CONTROL "Вспышка", IDC_NEB_TYPE_BURST, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 174, 247, 48, 10
+    LTEXT "Палитра −1 — случайная. Количества берутся случайно из диапазона.", -1, 14, 267, 224, 16
+
+    GROUPBOX "Звёзды", -1, 251, 7, 242, 315
+    LTEXT "Слабых звёзд:", -1, 258, 19, 116, 8
+    EDITTEXT IDC_STARS_FAINT, 380, 17, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Основных звёзд:", -1, 258, 34, 116, 8
+    EDITTEXT IDC_STARS_MAIN, 380, 32, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Ярких звёзд:", -1, 258, 49, 116, 8
+    EDITTEXT IDC_STARS_BRIGHT, 380, 47, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Избранных [0–3]:", -1, 258, 64, 116, 8
+    EDITTEXT IDC_STARS_FEATURED, 380, 62, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Размер [0.25–5]:", -1, 258, 79, 116, 8
+    EDITTEXT IDC_STAR_SIZE, 380, 77, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Яркость [0.1–5]:", -1, 258, 94, 116, 8
+    EDITTEXT IDC_STAR_BRIGHTNESS, 380, 92, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Полоса, % [0–100]:", -1, 258, 109, 116, 8
+    EDITTEXT IDC_STAR_BAND, 380, 107, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Мерцание, % [0–50]:", -1, 258, 124, 116, 8
+    EDITTEXT IDC_STAR_TWINKLE, 380, 122, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Лучи, % [0–100]:", -1, 258, 139, 116, 8
+    EDITTEXT IDC_STAR_SPIKE, 380, 137, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Боке основных, %:", -1, 258, 154, 116, 8
+    EDITTEXT IDC_STAR_BOKEH_MAIN, 380, 152, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Боке ярких, %:", -1, 258, 169, 116, 8
+    EDITTEXT IDC_STAR_BOKEH_BRIGHT, 380, 167, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Доплер, % [0–300]:", -1, 258, 184, 116, 8
+    EDITTEXT IDC_STAR_DOPPLER, 380, 182, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Варп, % [25–300]:", -1, 258, 199, 116, 8
+    EDITTEXT IDC_STAR_WARP, 380, 197, 55, 12, ES_AUTOHSCROLL
+    LTEXT "Масштаб, px:", -1, 258, 214, 84, 8
+    EDITTEXT IDC_STAR_SCALE_MIN, 345, 212, 26, 12, ES_AUTOHSCROLL
+    LTEXT "—", -1, 374, 214, 8, 8
+    EDITTEXT IDC_STAR_SCALE_MAX, 383, 212, 26, 12, ES_AUTOHSCROLL
+    LTEXT "Всего звёзд: до 120000. Изменения сохраняются после OK.", -1, 258, 236, 228, 16
+    LTEXT "Масштаб задаёт пределы размера звёзд в пикселях.", -1, 258, 254, 228, 16
+
+    PUSHBUTTON "Сброс всех настроек", IDC_BTN_DEFAULTS, 7, 329, 130, 14
+    LTEXT "Изменения сохраняются в реестр после OK.", -1, 147, 332, 178, 8
+    DEFPUSHBUTTON "OK", IDOK, 330, 329, 50, 14
+    PUSHBUTTON "Отмена", IDCANCEL, 385, 329, 50, 14
+END
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Ilja Gnezdilov"
+            VALUE "FileDescription", "Starfield Screensaver"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "Starfield"
+            VALUE "LegalCopyright", "Copyright (c) 2026 Ilja Gnezdilov"
+            VALUE "OriginalFilename", "Starfield.scr"
+            VALUE "ProductName", "Starfield Screensaver"
+            VALUE "ProductVersion", "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

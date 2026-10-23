@@ -1,0 +1,25 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        shell: cmd
+        run: build.bat
+
+      - name: Upload screensaver
+        uses: actions/upload-artifact@v4
+        with:
+          name: Starfield-scr
+          path: build/Starfield.scr
+          if-no-files-found: error
